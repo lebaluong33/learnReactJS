@@ -7,4 +7,9 @@
   margin: auto;
   padding: 16px;
   text-align: center;
+  font-size: 23px;
+}
+
+.name {
+  font-size: 20px;
 }
