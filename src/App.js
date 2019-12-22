@@ -38,12 +38,14 @@ class App extends Component {
     let persons = null;
     const styles = {
       button : {
-        backgroundColor: "white",
+        backgroundColor: "green",
+        color: "white",
         font: "inherit",
         border: "solid 1px blue",
         padding: "8px",
         cursor: "pointer",
-        fontSize: "20px"
+        fontSize: "25px",
+        width: "150px"
       }
     };
     if (this.state.showPerson) {
@@ -55,15 +57,23 @@ class App extends Component {
           clicked = {() => this.deletePersonHandler(index)}
           changed={(event) => this.nameChangeHandler(event,item.id)} />
       });
+      styles.button.backgroundColor = "red";
     }
+    let classes = [];
+    if(this.state.persons.length <= 2) { 
+      classes.push('red')
+    };
+    if (this.state.persons.length <= 1) {
+      classes.push('bold');
+    };
     return(
     <div className = "App" >
       <h1>Hi, I am React App</h1>
-      <p>This is really working</p>
-        <button
-          style = {styles.button}
-          onClick={this.togglePerson}
-        >Switch</button>
+      <p className={classes.join(' ')}>This is really working</p>
+      <button
+        style = {styles.button}
+        onClick={this.togglePerson}
+      >Switch</button>
       {persons}
     </div>
   );
