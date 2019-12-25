@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import Person from './Person/Person';
+import Persons from '../components/Persons/Persons';
 
 class App extends Component {
     state = {
@@ -49,14 +49,10 @@ class App extends Component {
       }
     };
     if (this.state.showPerson) {
-      persons = this.state.persons.map((item ,index) =>{
-        return <Person
-          key= {index}
-          name = {item.name}
-          age = {item.age}
-          clicked = {() => this.deletePersonHandler(index)}
-          changed={(event) => this.nameChangeHandler(event,item.id)} />
-      });
+      persons = <Persons
+                  clicked = {this.deletePersonHandler}
+                  persons = {this.state.persons}
+                  changed = {this.nameChangeHandler}/>;
       styles.button.backgroundColor = "red";
     }
     let classes = [];
