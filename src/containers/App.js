@@ -2,7 +2,10 @@ import React, {Component} from 'react';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import './App.css';
+import withClass from '../hoc/withClass';
+import Aux from '../hoc/Aux';
 
+const classes = 'App';
 class App extends Component {
   constructor(props){
     super(props);
@@ -14,7 +17,8 @@ class App extends Component {
         { id: "3c", name: "Nguyen Thi Nhu Quyen", age: 23 }
       ],
       showPerson: false,
-      showCockpit: true
+      showCockpit: true,
+      changeCounter: 0
     };
   };
   static getDerivedStateFromProps(props,state){
@@ -37,7 +41,12 @@ class App extends Component {
     person.name = name;
     const persons = [...this.state.persons]; 
     persons[personIndex] = person;   
-    this.setState({persons:persons});
+    this.setState( (prevState, props) => {
+      return { 
+        persons: persons,
+        changeCounter : prevState.changeCounter +1
+      }
+    });
   }
 
   deletePersonHandler = (personIndex) => {
@@ -80,7 +89,7 @@ class App extends Component {
                   changed = {this.nameChangeHandler}/>;
     }
     return(
-    <div className = "App" >
+    <Aux>
       <button onClick={() => {this.setState({showCockpit : false })}}> Remove Cockpit</button>
       {this.state.showCockpit? <Cockpit
         title = {this.props.appTitle} 
@@ -88,8 +97,8 @@ class App extends Component {
         showPerson = {this.state.showPerson}
           clicked={this.togglePerson} /> :null}
       {persons}
-    </div>
+    </Aux>
   );
   };
 };
-export default App;
+export default withClass(App, classes);
