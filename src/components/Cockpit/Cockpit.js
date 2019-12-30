@@ -1,10 +1,11 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useContext} from 'react';
 
 import './Cockpit.css';
 import AuthContext from '../../context/auth-context';
 
 const Cockpit = (props) => {
   const toggleBtnClick = useRef();
+  const authContext = useContext(AuthContext);
   useEffect(() => {
     console.log('[Cockpit.js] useEffect');
     // setTimeout(() => {
@@ -52,12 +53,10 @@ const Cockpit = (props) => {
       style={styles.button}
       onClick={props.clicked}
     >Switch</button>
-    <AuthContext.Consumer>
-    {(context) => <button 
-    onClick={context.login}
+    <button 
+    onClick={authContext.login}
     style={styles.button}
-    >Login</button>}
-    </AuthContext.Consumer>
+    >Login</button>
   </div>
 };
 export default React.memo(Cockpit);
