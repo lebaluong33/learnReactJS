@@ -1,6 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 
 import './Cockpit.css';
+import AuthContext from '../../context/auth-context';
 
 const Cockpit = (props) => {
   const toggleBtnClick = useRef();
@@ -30,10 +31,7 @@ const Cockpit = (props) => {
       padding: "8px",
       cursor: "pointer",
       fontSize: "25px",
-      width: "150px",
-      '&:hover': {
-        backgroundColor: '#5dc95d',
-      },   
+      width: "150px", 
     }
   };
   let classes = [];
@@ -54,6 +52,12 @@ const Cockpit = (props) => {
       style={styles.button}
       onClick={props.clicked}
     >Switch</button>
+    <AuthContext.Consumer>
+    {(context) => <button 
+    onClick={context.login}
+    style={styles.button}
+    >Login</button>}
+    </AuthContext.Consumer>
   </div>
 };
 export default React.memo(Cockpit);
